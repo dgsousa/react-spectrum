@@ -26,11 +26,13 @@ export function useResizeObserver<T extends HTMLElement>(options: useResizeObser
     } else {
 
       const resizeObserverInstance = new window.ResizeObserver((entries) => {
-        if (!entries.length) {
-          return;
-        }
+        window.requestAnimationFrame(() => {
+          if (!entries.length) {
+            return;
+          }
 
-        onResize();
+          onResize();
+        })
       });
       resizeObserverInstance.observe(element);
 
